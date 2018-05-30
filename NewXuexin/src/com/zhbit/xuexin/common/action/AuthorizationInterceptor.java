@@ -52,7 +52,6 @@ public class AuthorizationInterceptor extends AbstractInterceptor {
 		baseLink.add("sys/authorityAction_getAuthorityTypeList.action");
 		baseLink.add("sys/loginAction_leftMenu.action");
 		baseLink.add("sys/loginAction_leftMenu.action");
-		baseLink.add("sys/organizationAction_getOrgTree.action");
 	}
 
 	@SuppressWarnings("unchecked")

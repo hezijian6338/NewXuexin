@@ -110,6 +110,11 @@
 			<result name="index">/WEB-INF/jsp/teacher/stuScoreExport/index.jsp</result>
 			<result name="viewImport">/WEB-INF/jsp/teacher/stuScoreExport/import.jsp</result>
 		</action>
+		
+		<action name="tearewardPunishmentAction_*" class="tearewardPunishmentAction"
+			method="{1}">
+			<result name="index">/WEB-INF/jsp/teacher/rewardpunishment/index.jsp</result>
+		</action>
 	</package>
 
 </struts>
