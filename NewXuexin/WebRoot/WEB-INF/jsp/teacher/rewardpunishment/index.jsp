@@ -146,7 +146,7 @@
 	
 	//关闭窗口，提供给子页调用
 	function closeWindow(id){
-		$(rid).window('destroy');
+		$(id).window('destroy');
 		$('#dg').datagrid('reload');//刷新
 	}
 	
@@ -214,10 +214,10 @@
 				if (r) {
 					var ids = '';
 					for ( var i = 0; i < arr.length; i++) {
-						ids += arr[i].id + ',';
+						ids += arr[i].rid + ',';
 					}
 					ids = ids.substring(0, ids.length - 1);
-					$.post('stu/rewardPunishmentAction_delete.action', {
+					$.post('tea/tearewardPunishmentAction_delete.action', {
 						ids : ids
 					}, function callback(txt) {
 					var json = $.parseJSON(txt);

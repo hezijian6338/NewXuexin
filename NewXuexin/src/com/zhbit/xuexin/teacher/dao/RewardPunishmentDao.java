@@ -42,4 +42,16 @@ public interface RewardPunishmentDao {
 	 */
 	void update(TeaRewardPunishment info);
 
+	/**
+	 * 
+	* @Title: delete   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param info    设定文件   
+	* @return void    返回类型  
+	* @date 2018-5-31 下午11:05:34
+	* @author 林敬凯
+	* @throws
+	 */
+	void delete(TeaRewardPunishment info);
+
 }

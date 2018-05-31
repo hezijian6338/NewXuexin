@@ -146,6 +146,29 @@ public class RewardPunishmentAction extends BaseAction implements ModelDriven<Te
     }
     /**
      * 
+    * @Title: delete   
+    * @Description: TODO(这里用一句话描述这个方法的作用)   
+    * @param     设定文件   
+    * @return void    返回类型  
+    * @date 2018-5-31 下午9:27:10
+    * @author 林敬凯
+    * @throws
+     */
+    public void delete() {
+    	Map<String, Object> map = Const.getJsonMap();
+    	try{
+    		service.delete(ids);
+            map.put("status", Const.CODE_SUCCESS);
+            map.put("message", "删除成功");
+    	} catch (Exception err) {
+    		err.printStackTrace();
+            map.put("status", Const.CODE_FAIL);
+            map.put("message", "删除失败");
+    	} 
+    	OutUtil.outJson(map, getResponse());
+    }
+    /**
+     * 
     * @Title: getTeaRewardPunishment   
     * @Description: TODO(这里用一句话描述这个方法的作用)   
     * @param     设定文件   

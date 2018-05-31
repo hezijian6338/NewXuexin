@@ -28,4 +28,16 @@ public interface RewardPunishmentService {
 	 */
 	void update(TeaRewardPunishment info, TeaRewardPunishment oldInfo,
 			String happenedDateStr, String rewardDateStr)throws Exception;
+
+	/**
+	 * 
+	* @Title: delete   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param ids    设定文件   
+	* @return void    返回类型  
+	* @date 2018-5-31 下午9:28:33
+	* @author 林敬凯
+	* @throws
+	 */
+	void delete(String ids);
 }

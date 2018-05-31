@@ -100,6 +100,20 @@ public class RewardPunishmentDaoImpl implements RewardPunishmentDao{
 		hibernateTemplate.update(info);
 		
 	}
+	/**
+	 * 
+	* @Title: delete   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param info    设定文件   
+	* @date 2018-5-31 下午11:06:09
+	* @author 林敬凯
+	* @throws
+	 */
+	@Override
+	public void delete(TeaRewardPunishment info) {
+		hibernateTemplate.delete(info);
+		
+	}
 
 	
 }

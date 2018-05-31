@@ -137,5 +137,26 @@ public class RewardPunishmentServiceImpl implements RewardPunishmentService{
 		}
 		
 	}
+	/**
+	 * 
+	* @Title: delete   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param ids    设定文件   
+	* @date 2018-5-31 下午9:28:54
+	* @author 林敬凯
+	* @throws
+	 */
+	@Override
+	@Transactional(readOnly = false)
+	public void delete(String ids) {
+		if (ids != null || "".equals(ids)) {
+			String[] sids = ids.split(",");
+			for(String id : sids) {
+				TeaRewardPunishment info = dao.getTeaRewardPunishmentByid(id);
+				dao.delete(info);
+			}
+		}
+		
+	}
 
 }
