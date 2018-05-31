@@ -168,7 +168,7 @@
 	}
 
 	function onAdd() {
-		initWindow("dg_add","新增学生奖惩记录",750,400,"stu/rewardPunishmentAction_viewAdd.action");
+		initWindow("dg_add","新增教师奖惩记录",750,400,"tea/tearewardPunishmentAction_viewAdd.action");
 	}
 
 	function onUpdate() {

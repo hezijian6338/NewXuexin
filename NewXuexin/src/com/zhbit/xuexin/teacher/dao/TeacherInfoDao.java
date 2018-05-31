@@ -99,4 +99,18 @@ public interface TeacherInfoDao {
      */
     List<String> queryPhotoPath(String sql);
 
+    /**
+     * 
+    * @Title: getTeacherInfoByNoAndName   
+    * @Description: TODO(这里用一句话描述这个方法的作用)   
+    * @param @param employno
+    * @param @param employname
+    * @param @return    设定文件   
+    * @return TeacherInfo    返回类型  
+    * @date 2018-5-31 下午2:10:04
+    * @author 林敬凯
+    * @throws
+     */
+	public TeacherInfo getTeacherInfoByNoAndName(String employno, String employname);
+	
 }

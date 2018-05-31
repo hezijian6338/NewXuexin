@@ -58,6 +58,19 @@ public class RewardPunishmentDaoImpl implements RewardPunishmentDao{
         page.setResult(list);
         return page;
 	}
+	/**
+	 * 
+	* @Title: save   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param info    设定文件   
+	* @date 2018-5-31 下午2:36:45
+	* @author 林敬凯
+	* @throws
+	 */
+	@Override
+	public void save(TeaRewardPunishment info) {
+		hibernateTemplate.save(info);
+	}
 
 	
 }

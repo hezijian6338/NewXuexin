@@ -168,5 +168,26 @@ public class TeacherInfoDaoImpl implements TeacherInfoDao {
 //        System.out.println("~~~~~~~~~~~~~~~~~"+query.list().size());
         return query.list();
     }
+    /**
+	 * 
+	* @Title: getTeacherInfoByNoAndName   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param employno
+	* @param @param employname
+	* @param @return    设定文件   
+	* @date 2018-5-31 下午2:15:15
+	* @author 林敬凯
+	* @throws
+	 */
+    @SuppressWarnings("unchecked")
+	@Override
+	
+	public TeacherInfo getTeacherInfoByNoAndName(String employno,
+			String employname) {
+		String hql = "From TeacherInfo" + " tea where tea.employNo=? and tea.employName=?";
+		List<TeacherInfo> list = (List<TeacherInfo>) hibernateTemplate.find(hql, new Object[] {employno,employname});
+		TeacherInfo tea = list.isEmpty() ? null : list.get(0);
+		return tea;
+	}
 
 }

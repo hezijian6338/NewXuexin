@@ -14,15 +14,22 @@ import com.zhbit.xuexin.common.Const;
 import com.zhbit.xuexin.common.action.BaseAction;
 import com.zhbit.xuexin.common.action.Page;
 import com.zhbit.xuexin.common.utils.OutUtil;
+import com.zhbit.xuexin.domain.RewardPunishment;
 import com.zhbit.xuexin.domain.TeaRewardPunishment;
 import com.zhbit.xuexin.teacher.service.RewardPunishmentService;
 @Controller("tearewardPunishmentAction")
 @Scope("prototype")
+/**
+ * 
+* @ClassName: RewardPunishmentAction   
+* @Description: TODO(这里用一句话描述这个类的作用)   
+* @author 林敬凯   
+* @date 2018-5-31 上午11:07:13   
+*
+ */
 public class RewardPunishmentAction extends BaseAction implements ModelDriven<TeaRewardPunishment>{
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 
 	private TeaRewardPunishment info;
@@ -58,6 +65,17 @@ public class RewardPunishmentAction extends BaseAction implements ModelDriven<Te
     public String index() {
         return "index";
     }
+    /**
+     * 
+    * @Title: viewAdd   
+    * @Description: TODO(这里用一句话描述这个方法的作用)   
+    * @param @return    设定文件   
+    * @return String    返回类型   
+    * @throws
+     */
+    public String viewAdd() {
+        return "viewAdd";
+    }
     
     public void getList() {
     	Map<String, Object> map = Const.getJsonMap();
@@ -74,7 +92,32 @@ public class RewardPunishmentAction extends BaseAction implements ModelDriven<Te
     	}
     	OutUtil.outJson(map, getResponse());
     }
-	
+	/**
+	 * 
+	* @Title: save   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param     设定文件   
+	* @return void    返回类型  
+	* @date 2018-5-31 上午11:22:50  
+	* @throws
+	 */
+    public void save() {
+    	Map<String, Object> map = Const.getJsonMap();
+    	try {
+    		HttpServletRequest req = getRequest();
+    		int state = service.save(info, getSessionUser().getUserId(),happenedDateStr,rewardDateStr, new Page<TeaRewardPunishment>(req));
+    		if(state==1){
+                map.put("status", Const.CODE_SUCCESS);
+            }else{
+                map.put("status", Const.CODE_FAIL);
+            }
+    	} catch(Exception err) {
+    		err.printStackTrace();
+            map.put("status", Const.CODE_FAIL);
+    	}
+    	OutUtil.outJson(map, getResponse());
+    }
+    
     public TeaRewardPunishment getInfo() {
         return info;
     }
