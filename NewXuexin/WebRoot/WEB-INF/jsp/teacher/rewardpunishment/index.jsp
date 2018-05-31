@@ -52,7 +52,7 @@
 			<table id="dg" style="height:200px">
 				<thead>
 					<tr>
-						<th data-options="field:'id',checkbox:true,width:20"></th>
+						<th data-options="field:'rid',checkbox:true,width:20"></th>
 						<th data-options="field:'employno',width:100">工号</th>
 						<th data-options="field:'employname',width:100">姓名</th>
 						<th data-options="field:'orgName',width:150">学院</th>
@@ -146,7 +146,7 @@
 	
 	//关闭窗口，提供给子页调用
 	function closeWindow(id){
-		$(id).window('destroy');
+		$(rid).window('destroy');
 		$('#dg').datagrid('reload');//刷新
 	}
 	
@@ -187,8 +187,8 @@
 			});
 			return;
 		}
-		var id = arr[0].id;
-		initWindow("dg_edit","修改学生奖惩记录",750,400,"stu/rewardPunishmentAction_viewEdit.action?id="+id);
+		var rid = arr[0].rid;
+		initWindow("dg_edit","修改学生奖惩记录",750,400,"tea/tearewardPunishmentAction_viewEdit.action?rid="+rid);
 	}
 	
 	//取消选中项

@@ -71,6 +71,35 @@ public class RewardPunishmentDaoImpl implements RewardPunishmentDao{
 	public void save(TeaRewardPunishment info) {
 		hibernateTemplate.save(info);
 	}
+	/**
+	 * 
+	* @Title: getTeaRewardPunishmentByid   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param id
+	* @param @return    设定文件   
+	* @date 2018-5-31 下午5:51:28
+	* @author 林敬凯
+	* @throws
+	 */
+	@Override
+	public TeaRewardPunishment getTeaRewardPunishmentByid(String id) {
+		// TODO Auto-generated method stub
+		return hibernateTemplate.get(TeaRewardPunishment.class,id);
+	}
+	/**
+	 * 
+	* @Title: update   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param info    设定文件   
+	* @date 2018-5-31 下午6:08:34
+	* @author 林敬凯
+	* @throws
+	 */
+	@Override
+	public void update(TeaRewardPunishment info) {
+		hibernateTemplate.update(info);
+		
+	}
 
 	
 }

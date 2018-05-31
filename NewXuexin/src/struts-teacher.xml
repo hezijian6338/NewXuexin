@@ -114,8 +114,8 @@
 		<action name="tearewardPunishmentAction_*" class="tearewardPunishmentAction"
 			method="{1}">
 			<result name="index">/WEB-INF/jsp/teacher/rewardpunishment/index.jsp</result>
-			<result name="viewAdd">/WEB-INF/jsp/teacher/rewardpunishment/add.jsp
-			</result>
+			<result name="viewAdd">/WEB-INF/jsp/teacher/rewardpunishment/add.jsp</result>
+			<result name="viewEdit">/WEB-INF/jsp/teacher/rewardpunishment/edit.jsp</result>
 		</action>
 	</package>
 

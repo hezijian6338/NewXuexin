@@ -77,6 +77,10 @@ public class RewardPunishmentAction extends BaseAction implements ModelDriven<Te
         return "viewAdd";
     }
     
+    public String viewEdit() {
+    	return "viewEdit";
+    }
+    
     public void getList() {
     	Map<String, Object> map = Const.getJsonMap();
     	try {
@@ -117,7 +121,51 @@ public class RewardPunishmentAction extends BaseAction implements ModelDriven<Te
     	}
     	OutUtil.outJson(map, getResponse());
     }
-    
+    /**
+     * 
+    * @Title: update   
+    * @Description: TODO(这里用一句话描述这个方法的作用)   
+    * @param     设定文件   
+    * @return void    返回类型  
+    * @date 2018-5-31 下午4:39:14
+    * @author 林敬凯
+    * @throws
+     */
+    public void update() {
+    	Map<String, Object> map = Const.getJsonMap();
+    	try {
+    		TeaRewardPunishment oldInfo = service.getTeaRewardPunishmentByid(info.getRid());
+            service.update(info,oldInfo,happenedDateStr,rewardDateStr);
+            map.put("status", Const.CODE_SUCCESS);
+    	} 
+    	catch(Exception err) {
+    		err.printStackTrace();
+            map.put("status", Const.CODE_FAIL);
+    	}
+    	OutUtil.outJson(map, getResponse());
+    }
+    /**
+     * 
+    * @Title: getTeaRewardPunishment   
+    * @Description: TODO(这里用一句话描述这个方法的作用)   
+    * @param     设定文件   
+    * @return void    返回类型  
+    * @date 2018-5-31 下午7:22:48
+    * @author 林敬凯
+    * @throws
+     */
+    public void getTeaRewardPunishment() {
+    	Map<String, Object> map = Const.getJsonMap();
+    	try {
+    		TeaRewardPunishment info = service.getTeaRewardPunishmentByid(pId);
+    		map.put("info", info);
+            map.put("status", Const.CODE_SUCCESS);
+    	} catch(Exception err) {
+    		err.printStackTrace();
+            map.put("status", Const.CODE_FAIL);
+    	}
+    	OutUtil.outJson(map, getResponse());
+    }
     public TeaRewardPunishment getInfo() {
         return info;
     }

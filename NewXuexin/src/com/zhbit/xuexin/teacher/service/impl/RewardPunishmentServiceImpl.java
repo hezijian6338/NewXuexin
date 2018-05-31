@@ -86,5 +86,56 @@ public class RewardPunishmentServiceImpl implements RewardPunishmentService{
 		}
 		
 	}
+	/**
+	 * 
+	* @Title: getTeaRewardPunishmentByid   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param id
+	* @param @return    设定文件   
+	* @date 2018-5-31 下午5:41:17
+	* @author 林敬凯
+	* @throws
+	 */
+	@Override
+	public TeaRewardPunishment getTeaRewardPunishmentByid(String id) {
+		// TODO Auto-generated method stub
+		return dao.getTeaRewardPunishmentByid(id);
+	}
+	/**
+	 * 
+	* @Title: update   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param info
+	* @param @param oldInfo
+	* @param @param happenedDateStr
+	* @param @param rewardDateStr    设定文件   
+	* @date 2018-5-31 下午5:57:35
+	* @author 林敬凯
+	* @throws
+	 */
+	@Override
+	@Transactional(readOnly = false)
+	public void update(TeaRewardPunishment info, TeaRewardPunishment oldInfo,
+			String happenedDateStr, String rewardDateStr) throws Exception {
+		if(info != null) {
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			Organization org = orgDao.getOrganizationById(info.getOrgId());
+			info.setOrgName(org.getOrgName());
+			Organization org2 = orgDao.getOrganizationById(info.getRpOrgId());
+			info.setRpOrgName(org2.getOrgName());
+			if (happenedDateStr != null && !"".equals(happenedDateStr)) {
+				info.setHappenedDate(df.parse(happenedDateStr));
+			}
+			if (rewardDateStr != null && !"".equals(rewardDateStr)) {
+				info.setRewardDate(df.parse(rewardDateStr));
+			}
+			info.setEmployname(oldInfo.getEmployname());
+			info.setCreateTime(oldInfo.getCreateTime());
+			info.setCreator(oldInfo.getCreator());
+			info.setId(oldInfo.getId());
+			dao.update(info);
+		}
+		
+	}
 
 }
