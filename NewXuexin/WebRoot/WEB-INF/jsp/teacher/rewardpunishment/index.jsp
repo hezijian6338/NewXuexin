@@ -262,7 +262,7 @@
 	//导出
 	function exportStudents(){
 		//location.href="${ctx}/channeldistr!exportExcelList.action";
-		queryForm.action="stu/rewardPunishmentAction_exportExcelList.action";
+		queryForm.action="tea/tearewardPunishmentAction_exportExcelList.action";
 		queryForm.submit();
 	}
 	

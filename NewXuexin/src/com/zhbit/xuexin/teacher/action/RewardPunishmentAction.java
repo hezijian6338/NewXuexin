@@ -13,6 +13,8 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.zhbit.xuexin.common.Const;
 import com.zhbit.xuexin.common.action.BaseAction;
 import com.zhbit.xuexin.common.action.Page;
+import com.zhbit.xuexin.common.domain.vo.ExportExcelVO;
+import com.zhbit.xuexin.common.utils.ExcelUtil;
 import com.zhbit.xuexin.common.utils.OutUtil;
 import com.zhbit.xuexin.domain.RewardPunishment;
 import com.zhbit.xuexin.domain.TeaRewardPunishment;
@@ -189,6 +191,28 @@ public class RewardPunishmentAction extends BaseAction implements ModelDriven<Te
     	}
     	OutUtil.outJson(map, getResponse());
     }
+    /**
+     * 
+    * @Title: exportExcelList   
+    * @Description: TODO(将查询结果导出到Excel表。)   
+    * @param     设定文件   
+    * @return void    返回类型  
+    * @date 2018-6-3 下午10:36:15
+    * @author 林敬凯
+    * @throws
+     */
+    public void exportExcelList() {
+    	try {
+    		HttpServletRequest req = getRequest();
+    		ExportExcelVO vo = service.exportExcelList(new Page<TeaRewardPunishment>(req));
+    		ExcelUtil.exportArray(getResponse(), vo.getTitle(), vo.getHeadTitle(), vo.getDataList());
+    		
+    	} catch (Exception err) {
+    		log.error("导出文件写出结果时出异常", err);
+            err.printStackTrace();
+    	}
+    }
+    
     public TeaRewardPunishment getInfo() {
         return info;
     }

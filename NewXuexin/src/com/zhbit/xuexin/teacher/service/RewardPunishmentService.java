@@ -1,6 +1,7 @@
 package com.zhbit.xuexin.teacher.service;
 
 import com.zhbit.xuexin.common.action.Page;
+import com.zhbit.xuexin.common.domain.vo.ExportExcelVO;
 import com.zhbit.xuexin.domain.TeaRewardPunishment;
 
 public interface RewardPunishmentService {
@@ -40,4 +41,17 @@ public interface RewardPunishmentService {
 	* @throws
 	 */
 	void delete(String ids);
+
+	/**
+	 * 
+	* @Title: exportExcelList   
+	* @Description: TODO(导出。)   
+	* @param @param page
+	* @param @return    设定文件   
+	* @return ExportExcelVO    返回类型  
+	* @date 2018-6-3 下午10:40:37
+	* @author 林敬凯
+	* @throws
+	 */
+	ExportExcelVO exportExcelList(Page<TeaRewardPunishment> page);
 }

@@ -2,6 +2,7 @@ package com.zhbit.xuexin.teacher.service.impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
 import com.zhbit.xuexin.common.action.Page;
+import com.zhbit.xuexin.common.domain.vo.ExportExcelVO;
 import com.zhbit.xuexin.common.dto.PageResult;
 import com.zhbit.xuexin.domain.Organization;
 import com.zhbit.xuexin.domain.TeaRewardPunishment;
@@ -157,6 +159,51 @@ public class RewardPunishmentServiceImpl implements RewardPunishmentService{
 			}
 		}
 		
+	}
+	/**
+	 * 
+	* @Title: exportExcelList   
+	* @Description: TODO(导出。)   
+	* @param @param page
+	* @param @return    设定文件   
+	* @date 2018-6-3 下午10:41:44
+	* @author 林敬凯
+	* @throws
+	 */
+	@Override
+	public ExportExcelVO exportExcelList(Page<TeaRewardPunishment> page) {
+		page.setPage(1);
+        page.setRows(100000);
+        // 获取查询结果数据集
+        Page<TeaRewardPunishment> pageResult = dao.getList(page);
+        List<TeaRewardPunishment> list = pageResult.getResult();
+        // 设置表头
+        String[] title = {"工号","姓名","学院","职务","发生时间","奖惩时间","公文文号","事项描述","奖惩类型","奖惩部门","备注"};
+        // 设置文件名
+        String filename = "教师奖惩信息表";
+        ExportExcelVO vo = new ExportExcelVO();
+        List<Object[]> listInfo = new ArrayList<Object[]>();
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+        for(int i = 0; i < list.size(); i++) {
+        	TeaRewardPunishment info = list.get(i);
+        	String[] str = new String[11];
+        	str[0] = info.getEmployno();
+        	str[1] = info.getEmployname();
+        	str[2] = info.getOrgName();
+        	str[3] = info.getDuty();
+        	str[4] = info.getHappenedDate().toString();
+        	str[5] = info.getRewardDate().toString();
+        	str[6] = info.getFileNo();
+        	str[7] = info.getDescription();
+        	str[8] = info.getRewardType();
+        	str[9] = info.getRpOrgName();
+        	str[10] = info.getMemo();
+        	listInfo.add(str);
+        }
+        vo.setTitle(filename);
+        vo.setHeadTitle(title);
+        vo.setDataList(listInfo);
+        return vo;
 	}
 
 }
