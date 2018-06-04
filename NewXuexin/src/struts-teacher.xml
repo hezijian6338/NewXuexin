@@ -116,6 +116,7 @@
 			<result name="index">/WEB-INF/jsp/teacher/rewardpunishment/index.jsp</result>
 			<result name="viewAdd">/WEB-INF/jsp/teacher/rewardpunishment/add.jsp</result>
 			<result name="viewEdit">/WEB-INF/jsp/teacher/rewardpunishment/edit.jsp</result>
+			<result name="viewImport">/WEB-INF/jsp/teacher/rewardpunishment/import.jsp</result>
 		</action>
 	</package>
 

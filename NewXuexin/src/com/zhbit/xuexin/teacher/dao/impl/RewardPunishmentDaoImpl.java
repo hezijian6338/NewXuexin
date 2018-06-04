@@ -114,6 +114,23 @@ public class RewardPunishmentDaoImpl implements RewardPunishmentDao{
 		hibernateTemplate.delete(info);
 		
 	}
+	/**
+	 * 
+	* @Title: getTeaRewardPunishmentByNo   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param cellValue
+	* @param @return    设定文件   
+	* @date 2018-6-4 上午10:09:12
+	* @author 林敬凯
+	* @throws
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public TeaRewardPunishment getTeaRewardPunishmentByNo(String employNo) {
+		String hql = "From TeaRewardPunishment info where info.employNo= ?";
+		List<TeaRewardPunishment> list = (List<TeaRewardPunishment>) hibernateTemplate.find(hql, new Object[] {employNo});
+		return list.isEmpty() ? null : list.get(0);
+	}
 
 	
 }

@@ -53,5 +53,17 @@ public interface RewardPunishmentDao {
 	* @throws
 	 */
 	void delete(TeaRewardPunishment info);
+	/**
+	 * 
+	* @Title: getTeaRewardPunishmentByNo   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param cellValue
+	* @param @return    设定文件   
+	* @return TeaRewardPunishment    返回类型  
+	* @date 2018-6-4 上午10:06:05
+	* @author 林敬凯
+	* @throws
+	 */
+	TeaRewardPunishment getTeaRewardPunishmentByNo(String employNo);
 
 }

@@ -1,8 +1,11 @@
 package com.zhbit.xuexin.teacher.service;
 
+import java.io.File;
+
 import com.zhbit.xuexin.common.action.Page;
 import com.zhbit.xuexin.common.domain.vo.ExportExcelVO;
 import com.zhbit.xuexin.domain.TeaRewardPunishment;
+import com.zhbit.xuexin.domain.User;
 
 public interface RewardPunishmentService {
 
@@ -54,4 +57,19 @@ public interface RewardPunishmentService {
 	* @throws
 	 */
 	ExportExcelVO exportExcelList(Page<TeaRewardPunishment> page);
+
+	/**
+	 * 
+	* @Title: importFile   
+	* @Description: TODO(这里用一句话描述这个方法的作用)   
+	* @param @param excel
+	* @param @param user
+	* @param @param suffix
+	* @param @return    设定文件   
+	* @return int[]    返回类型  
+	* @date 2018-6-4 上午8:42:18
+	* @author 林敬凯
+	* @throws
+	 */
+	int[] importFile(File excel, User user, String suffix);
 }

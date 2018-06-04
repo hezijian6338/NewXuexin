@@ -256,7 +256,7 @@
 	}
 	
 	function importStuents() {
-		initWindow("dg_import","学生奖惩记录",450,200,"stu/rewardPunishmentAction_viewImport.action"); 
+		initWindow("dg_import","学生奖惩记录",450,200,"tea/tearewardPunishmentAction_viewImport.action"); 
 	}
 	
 	//导出

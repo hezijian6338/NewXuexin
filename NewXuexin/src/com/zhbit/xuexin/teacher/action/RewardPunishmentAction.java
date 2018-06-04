@@ -1,9 +1,13 @@
 package com.zhbit.xuexin.teacher.action;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.annotation.Scope;
@@ -14,10 +18,12 @@ import com.zhbit.xuexin.common.Const;
 import com.zhbit.xuexin.common.action.BaseAction;
 import com.zhbit.xuexin.common.action.Page;
 import com.zhbit.xuexin.common.domain.vo.ExportExcelVO;
+import com.zhbit.xuexin.common.utils.ApplicationUtil;
 import com.zhbit.xuexin.common.utils.ExcelUtil;
 import com.zhbit.xuexin.common.utils.OutUtil;
 import com.zhbit.xuexin.domain.RewardPunishment;
 import com.zhbit.xuexin.domain.TeaRewardPunishment;
+import com.zhbit.xuexin.domain.User;
 import com.zhbit.xuexin.teacher.service.RewardPunishmentService;
 @Controller("tearewardPunishmentAction")
 @Scope("prototype")
@@ -81,6 +87,19 @@ public class RewardPunishmentAction extends BaseAction implements ModelDriven<Te
     
     public String viewEdit() {
     	return "viewEdit";
+    }
+    /**
+     * 
+    * @Title: viewImport   
+    * @Description: TODO(这里用一句话描述这个方法的作用)   
+    * @param @return    设定文件   
+    * @return String    返回类型  
+    * @date 2018-6-4 下午5:05:45
+    * @author 林敬凯
+    * @throws
+     */
+    public String viewImport() {
+        return "viewImport";
     }
     
     public void getList() {
@@ -212,7 +231,84 @@ public class RewardPunishmentAction extends BaseAction implements ModelDriven<Te
             err.printStackTrace();
     	}
     }
-    
+    /**
+     * 
+    * @Title: importFile   
+    * @Description: TODO(导入学生信息)
+    * @param     设定文件   
+    * @return void    返回类型  
+    * @date 2018-6-4 上午8:30:53
+    * @author 林敬凯
+    * @throws
+     */
+    public void importFile() {
+    	try {
+    		int resultCode = 0;
+    		int[] count = { 0, 0, 0 };
+    		if (excel != null) {
+    			String suffix = excelFileName.substring(excelFileName.lastIndexOf("."));
+    			if(".xlsx".equalsIgnoreCase(suffix) || ".xls".equalsIgnoreCase(suffix)) {
+    				User user = (User) getSession().getAttribute(Const.SESSION_USER);
+    				count = service.importFile(excel, user, suffix);
+    				if(count[0] < 0) {
+    					resultCode = Const.CODE_UNKOWN_ERR;
+    				} 
+    			} else {// 格式不符
+					resultCode = 1;
+				}
+    			StringBuffer result = new StringBuffer();
+    			result.append("<script type=\"text/javascript\">");
+                result.append("var resultCode=").append(resultCode).append(";");
+                result.append("var importCount=").append(count[0]).append(";");
+                result.append("var insertCount=").append(count[1]).append(";");
+                result.append("var updateCount=").append(count[2]).append(";");
+                result.append("</script>");
+                getResponse().getWriter().print(result.toString());
+    		}
+    	} catch (IOException e) {
+    	}
+    }
+    /**
+     * 
+    * @Title: exportTemplate   
+    * @Description: TODO(这里用一句话描述这个方法的作用)   
+    * @param     设定文件   
+    * @return void    返回类型  
+    * @date 2018-6-4 下午4:57:51
+    * @author 林敬凯
+    * @throws
+     */
+    public void exportTemplate() {
+    	InputStream in = null;
+    	try {
+    		getResponse().setContentType("application/octet-stream; charset=utf-8");
+    		getResponse().setHeader("Content-Disposition",
+                    "attachment;filename=" + new String("教师奖惩记录导入模板.xls".getBytes("GBK"), "ISO8859-1"));
+    		String templatePath = ApplicationUtil.getInstance().getProjectPath() + File.separator + "template"
+                    + File.separator + "TeaRewardPunishment.xls";
+    		File temFile = new File(templatePath);
+    		byte[] bytes = new byte[0xffff];
+    		in = new FileInputStream(temFile);
+    		ServletOutputStream out = getResponse().getOutputStream();
+    		int b = 0;
+    		while ((b = in.read(bytes, 0, 0xffff)) > 0) {
+                out.write(bytes, 0, b);
+            }
+            out.flush();
+    	} catch(Exception e) {
+    		log.error("导出模板文件出错", e);
+    		
+    	} finally {
+    		if (in != null) {
+                try {
+                    in.close();
+                }
+                catch(IOException e) {
+                    log.error("关闭导出模板文件的输入流出错", e);
+                }
+            }
+    	}
+    }
     public TeaRewardPunishment getInfo() {
         return info;
     }

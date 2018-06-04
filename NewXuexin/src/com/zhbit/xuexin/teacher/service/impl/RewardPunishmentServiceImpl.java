@@ -1,11 +1,20 @@
 package com.zhbit.xuexin.teacher.service.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -13,12 +22,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.opensymphony.xwork2.util.logging.Logger;
 import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import com.zhbit.xuexin.common.Const;
 import com.zhbit.xuexin.common.action.Page;
 import com.zhbit.xuexin.common.domain.vo.ExportExcelVO;
-import com.zhbit.xuexin.common.dto.PageResult;
+import com.zhbit.xuexin.common.utils.ExcelUtil;
 import com.zhbit.xuexin.domain.Organization;
 import com.zhbit.xuexin.domain.TeaRewardPunishment;
 import com.zhbit.xuexin.domain.TeacherInfo;
+import com.zhbit.xuexin.domain.User;
 import com.zhbit.xuexin.sys.dao.OrganizationDao;
 import com.zhbit.xuexin.teacher.dao.RewardPunishmentDao;
 import com.zhbit.xuexin.teacher.dao.TeacherInfoDao;
@@ -191,8 +202,10 @@ public class RewardPunishmentServiceImpl implements RewardPunishmentService{
         	str[1] = info.getEmployname();
         	str[2] = info.getOrgName();
         	str[3] = info.getDuty();
-        	str[4] = info.getHappenedDate().toString();
-        	str[5] = info.getRewardDate().toString();
+        	str[4] = info.getHappenedDate() == null ? "" : ExcelUtil
+					.setDateValue(info.getHappenedDate(), "yyyy.MM.dd");
+        	str[5] = info.getRewardDate() == null ? "" : ExcelUtil
+					.setDateValue(info.getRewardDate(), "yyyy.MM.dd");
         	str[6] = info.getFileNo();
         	str[7] = info.getDescription();
         	str[8] = info.getRewardType();
@@ -204,6 +217,101 @@ public class RewardPunishmentServiceImpl implements RewardPunishmentService{
         vo.setHeadTitle(title);
         vo.setDataList(listInfo);
         return vo;
+	}
+	/**
+	 * 
+	* @Title: importFile   
+	* @Description: TODO(导入。)   
+	* @param @param excel
+	* @param @param user
+	* @param @param suffix
+	* @param @return    设定文件   
+	* @date 2018-6-4 上午8:42:56
+	* @author 林敬凯
+	* @throws
+	 */
+	@Override
+	@Transactional(readOnly = false)
+	public int[] importFile(File excel, User user, String suffix) {
+		SimpleDateFormat df = new SimpleDateFormat("yyMMdd");
+		Workbook wb = null;
+		FileInputStream in = null;
+		int importCount = 0;// 成功导入的总条数
+		int insertCount = 0;// 导入新增的总条数
+		int updateCount = 0;// 导入更新的总条数
+		try {
+			in = new FileInputStream(excel);
+			if (".xlsx".equalsIgnoreCase(suffix)) {// 2007+
+				wb = WorkbookFactory.create(in);
+			} else {
+				wb = new HSSFWorkbook(in);// 2007以下（2003）
+			}
+		} catch(Exception e) {
+			logger.error("读取导入的网站配置文件出异常", e);
+			return new int[] { -1, insertCount, updateCount };
+		} finally {
+			if(in != null) {
+				try{
+					in.close();
+				} catch(IOException e) {
+					logger.error("读取导入的网站配置文件时关闭输入流异常", e);
+				}
+			}
+		}
+		if(wb != null) {
+			Sheet sheet = wb.getSheetAt(0);
+			Iterator<Row> rowIterator = sheet.rowIterator();
+			Row row = null;
+			rowIterator.next();// 第一行标题不读
+			String msg = null;
+			
+			while(rowIterator.hasNext()) {
+				try {
+					row = rowIterator.next();
+					if(!"".equals(ExcelUtil.getCellValue(row.getCell(0)))) {
+						importCount++;
+						System.out.println(".........." + ExcelUtil.getCellValue(row.getCell(0)));
+						TeacherInfo tea = teacherInfoDao.getTeacherInfoByNo(ExcelUtil.getCellValue(row.getCell(0)));
+						if (tea == null) {
+							updateCount++;
+						} else {
+							TeaRewardPunishment info = new TeaRewardPunishment();
+							info.setEmployno(ExcelUtil.getCellValue(row.getCell(0)));
+							info.setEmployname(ExcelUtil.getCellValue(row.getCell(1)));
+							info.setOrgName(ExcelUtil.getCellValue(row.getCell(2)));
+							if (!"".equals(ExcelUtil.getCellValue(row.getCell(2)))) {
+								info.setOrgId(Const.ORG_ID_MAP.get(ExcelUtil.getCellValue(row.getCell(2))));
+							}
+							info.setDuty(ExcelUtil.getCellValue(row.getCell(3)));
+							info.setHappenedDate(ExcelUtil.getDateValue(
+									ExcelUtil.getCellValue(row.getCell(4)),
+									"yyyy.MM.dd"));
+							info.setRewardDate(ExcelUtil.getDateValue(
+									ExcelUtil.getCellValue(row.getCell(5)),
+									"yyyy.MM.dd"));
+							info.setFileNo(ExcelUtil.getCellValue(row.getCell(6)));
+							info.setDescription(ExcelUtil.getCellValue(row.getCell(7)));
+							info.setRewardType(ExcelUtil.getCellValue(row.getCell(8)));
+							info.setRpOrgName(ExcelUtil.getCellValue(row.getCell(9)));
+							if (!"".equals(ExcelUtil.getCellValue(row.getCell(9)))) {
+								info.setRpOrgId(Const.ORG_ID_MAP.get(ExcelUtil.getCellValue(row.getCell(9))));
+							}
+							info.setMemo(ExcelUtil.getCellValue(row.getCell(10)));
+							info.setCreateTime(new Date());
+							info.setId(tea.getId());
+							dao.save(info);
+							insertCount++;
+						}
+					}
+					
+				} catch(Exception e) {
+					msg = (ExcelUtil.getCellValue(row.getCell(4)))
+							+ (ExcelUtil.getCellValue(row.getCell(5)));
+					logger.error("读取导入文件持久化出异常,异常数据:\n" + msg, e);
+				} 
+			}
+		}
+		return new int[] { importCount, insertCount, updateCount };
 	}
 
 }
