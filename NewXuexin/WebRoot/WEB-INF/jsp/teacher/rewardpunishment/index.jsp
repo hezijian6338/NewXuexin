@@ -31,11 +31,11 @@
 
 				<table>
 					<tr>
-						<td>姓名: <input type="text" class="l_textbox" id="stuname"
-							name="stuname" value="">
+						<td>姓名: <input type="text" class="l_textbox" id="employname"
+							name="employname" value="">
 						</td>
-						<td>工号: <input type="text" class="l_textbox" id="studentno"
-							name="studentno" value="">
+						<td>工号: <input type="text" class="l_textbox" id="employno"
+							name="employno" value="">
 						</td>
 						<td><a id="btnfind" class="easyui-linkbutton"
 							data-options="iconCls:'icon-search'" onclick="doQuery()">查询</a> <a

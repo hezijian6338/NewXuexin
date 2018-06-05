@@ -111,7 +111,6 @@ public class RewardPunishmentServiceImpl implements RewardPunishmentService{
 	 */
 	@Override
 	public TeaRewardPunishment getTeaRewardPunishmentByid(String id) {
-		// TODO Auto-generated method stub
 		return dao.getTeaRewardPunishmentByid(id);
 	}
 	/**
