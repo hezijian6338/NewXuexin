@@ -1,0 +1,3 @@
+eclipse.preferences.version=1
+validator.Checked=WebRoot/WEB-INF/jsp/teacher/stuScoreCarify/index.jsp,WebRoot/WEB-INF/jsp/teacher/courseinfo/index.jsp,WebRoot/WEB-INF/jsp/student/stuconfirmMaster/index.jsp,WebRoot/WEB-INF/jsp/student/students/detail.jsp,WebRoot/WEB-INF/jsp/student/students/updatephoto.jsp,WebRoot/WEB-INF/jsp/student/stuscoreconfmaster/index.jsp
+validator.Unchecked=

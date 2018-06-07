@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+.edit_winRow {
+	margin-left: 15%;
+	margin-bottom: 15px;
+	overflow: hidden;
+	width: auto;
+	height: auto;
+	_zoom: 1;
+}
+
+.detailTable{
+	clear: both;
+	border: 1px solid #cecece;
+	font-size: 14px;
+/* 	width: 100%; */
+	margin-top: 10px;
+}
+.detailTable_th{
+	background: #eeeeee;
+	height: 40px;
+	line-height: 40px;
+	font-size: 24px;
+	width: auto;
+	font-weight: normal;
+}
+.detailTable_td{
+	height: 40x;
+	line-height: 40px;
+	width: 40;
+	font-weight: normal;
+	border: 1px solid #cecece;
+	font-size: 14px;
+}
+
+.editTable_td2{
+	height: auto;
+	font-weight: normal;
+	border: 1px solid #cecece;
+	font-size: 12px;
+}
+
+.detail_left{
+	float: left;
+	clear: both;
+	text-align: right;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	padding-top: 2px;
+	width: 90px;
+	margin: 0;
+	padding: 0;
+}
+.detail_right{
+	float: left;
+	margin-left: 10px;
+	text-align: left;
+	_margin-left: 0px;
+}

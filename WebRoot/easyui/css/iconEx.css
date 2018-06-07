@@ -1,0 +1,32 @@
+.icon-group_key {
+	background: url('../icons/iconEx/group_key.png') no-repeat center center;
+}
+
+.icon-group_add {
+	background: url('../icons/iconEx/group_add.png') no-repeat center center;
+}
+
+.icon-arrow_in_longer {
+	background: url('../icons/iconEx/arrow_in_longer.png') no-repeat center
+		center;
+}
+
+.icon-arrow_out_longer {
+	background: url('../icons/iconEx/arrow_out_longer.png') no-repeat center
+		center;
+}
+
+.icon-upload {
+	background: url('../icons/iconEx/upload.png') no-repeat center
+		center;
+}
+
+.icon-download {
+	background: url('../icons/iconEx/download.png') no-repeat center
+		center;
+}
+
+.icon-detailview {
+	background: url('../icons/iconEx/detail_btn.png') no-repeat center
+		center;
+}
